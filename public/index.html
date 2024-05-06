@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="login">
+            <h2>Login / Signup</h2>
+            <form action="#" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#">Signup</a></p>
+            </form>
+        </section>
+
+        <section id="instance-management">
+            <h2>MongoDB Instance Management</h2>
+            <div id="connected-instances">
+                <h3>Connected Instances</h3>
+                <ul>
+                    <li>Instance 1</li>
+                    <li>Instance 2</li>
+                    <li>Instance 3</li>
+                </ul>
+            </div>
+            <div id="instance-info">
+                <h3>Instance Information</h3>
+                <p>Instance 1: Databases - 5, Users - 10</p>
+                <p>Instance 2: Databases - 3, Users - 8</p>
+                <p>Instance 3: Databases - 7, Users - 15</p>
+            </div>
+        </section>
+
+        <section id="submit-data">
+            <h2>Submit Data</h2>
+            <form id="myForm">
+                <label for="instanceName">Instance Name:</label>
+                <input type="text" id="instanceName" name="instanceName">
+                <br><br>
+                <label for="host">Host:</label>
+                <input type="text" id="host" name="host">
+                <br><br>
+                <label for="port">Port:</label>
+                <input type="text" id="port" name="port">
+                <br><br>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Admin Panel. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
